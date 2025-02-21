@@ -1,6 +1,6 @@
 import type { StandardSchemaV1 } from '@standard-schema/spec'
 import { Schema, JSONSchema } from 'effect'
-import { VersionedSchema } from './versioned-schema'
+import { VersionedSchema } from '.'
 
 export const createStandardSchema = ({ schema }: VersionedSchema): StandardSchemaV1<any> =>
   Schema.standardSchemaV1(schema)

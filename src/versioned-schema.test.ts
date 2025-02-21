@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 import { Schema } from 'effect'
-import { createVersionedSchema } from './versioned-schema'
+import { createVersionedSchema } from '.'
 
 describe('createVersionedSchema', () => {
   const baseSchema = {
