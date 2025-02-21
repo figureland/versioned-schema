@@ -1,4 +1,16 @@
 #
+## v0.0.7
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.6...v0.0.7)
+
+### 🏡 Chore
+
+- Updated dependencies ([75a0bdb](https://github.com/figureland/versioned-schema/commit/75a0bdb))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.6
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.5...v0.0.6)
