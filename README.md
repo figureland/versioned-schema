@@ -3,11 +3,34 @@
 
 # versioned-schema
 
-This tool allows you to create basic versioned schemas. It is based on [effect/Schema](https://effect.website/docs/schema/introduction/). This comes in hand when designing distributed apps and data structures, where you want to create a process for dealing with
+A tiny tool which allows you to create basic versioned schemas, using [effect/Schema](https://effect.website/docs/schema/introduction/). This is handy when designing distributed apps and data structures.
 
 ```ts
 import { Schema } from 'effect'
 import { createVersionedSchema } from '@figureland/versioned-schema'
+
+// In this example, we have an existing data structure and a want to
+// create a new version of it. It looks like this:
+
+// {
+//   id: string
+//   createdAt: number
+//   name: string
+//   version: "1"
+// }
+
+// And we want to add a description field to it.
+
+// {
+//   id: string
+//   createdAt: number
+//   name: string
+//   description: string
+//   version: "2"
+// }
+
+// We want our app to be able to support different versions
+// of this data structure. So we create a versioned schema.
 
 const example = createVersionedSchema({
   // Base schema - shared across all versions
