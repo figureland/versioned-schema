@@ -1,4 +1,16 @@
 #
+## v0.0.4
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.3...v0.0.4)
+
+### 📖 Documentation
+
+- Tweak to readme ([d7db02d](https://github.com/figureland/versioned-schema/commit/d7db02d))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.3
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.2...v0.0.3)
