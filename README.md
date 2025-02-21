@@ -151,17 +151,23 @@ console.log(exampleSchema.isVersion('1', v1Data)) // true
 console.log(exampleSchema.isVersion('2', v1Data)) // false
 ```
 
-### Convert to JSON Schema
+### Interchange
 
-There are also some helpers to convert your schema into [JSON Schema](https://json-schema.org/specification) or [Standard Schema](<[StandardSchema](https://standardschema.dev/)>).
+#### Convert into [Standard Schema](<[StandardSchema](https://standardschema.dev/)>).
 
 ```ts
-import { createStandardSchema, createJSONSchema } from '@figureland/versioned-schema/interchange'
-import { example } from '.'
+import type { StandardSchemaV1 } from '@standard-schema/spec'
+import { Schema } from 'effect'
 
-const json = createJSONSchema(example)
+const standard = Schema.standardSchemaV1(exampleSchema.schema)
+```
 
-const standard = createStandardSchema(example)
+#### Convert your schema into [JSON Schema](https://json-schema.org/specification)
+
+```ts
+import { JSONSchema } from 'effect'
+
+const json = JSONSchema.make(exampleSchema.schema)
 ```
 
 ## Scripts

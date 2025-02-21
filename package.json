@@ -8,10 +8,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./interchange": {
-      "types": "./dist/interchange.d.ts",
-      "import": "./dist/interchange.js"
     }
   },
   "description": "Create versioned schemas for distributed applications",
