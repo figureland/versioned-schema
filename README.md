@@ -5,46 +5,70 @@
 
 A tiny tool which allows you to create basic versioned schemas, using [effect/Schema](https://effect.website/docs/schema/introduction/). This is handy when designing distributed apps and data structures.
 
+## Explainer
+
+Let's start with a basic data structure.
+
+```ts
+{
+  id: string
+  createdAt: number
+  name: string
+}
+```
+
+We want to create a new version of it. We want to add a description field to it.
+
+```ts
+{
+  id: string
+  createdAt: number
+  name: string
+  description: string
+}
+```
+
+And later on, we want `description` to be an array of strings.
+
+```ts
+{
+  id: string
+  createdAt: number
+  name: string
+  description: string[]
+}
+```
+
+We want our app to be able to support different versions of this data structure. So we create a versioned schema and end up with this:
+
+```ts
+{
+  id: string
+  createdAt: number
+  name: string
+  version: "1"
+} | {
+  id: string
+  createdAt: number
+  name: string
+  description: string
+  version: "2"
+} | {
+  id: string
+  createdAt: number
+  name: string
+  description: string[]
+  version: "3"
+}
+```
+
+We can use this library to create this. Provided are some little helpers to make it easier to work with that schema in your app.
+
+#### Create a versioned schema
+
 ```ts
 import { Schema } from 'effect'
 import { createVersionedSchema } from '@figureland/versioned-schema'
-
-// In this example, we have an existing data structure and a want to
-// create a new version of it. It looks like this:
-
-// {
-//   id: string
-//   createdAt: number
-//   name: string
-//   version: "1"
-// }
-
-// And we want to add a description field to it.
-
-// {
-//   id: string
-//   createdAt: number
-//   name: string
-//   description: string
-//   version: "2"
-// }
-
-// We want our app to be able to support different versions
-// of this data structure. So we create a versioned schema and
-// end up with this:
-
-// {
-//   id: string
-//   createdAt: number
-//   name: string
-//   version: "1"
-// } | {
-//   id: string
-//   createdAt: number
-//   name: string
-//   description: string
-//   version: "2"
-// }
 
 const example = createVersionedSchema({
   // Base schema - shared across all versions
@@ -60,18 +84,38 @@ const example = createVersionedSchema({
     '2': {
       name: Schema.String,
       description: Schema.String
+    },
+    '3': {
+      name: Schema.String,
+      description: Schema.Array(Schema.String)
     }
   }
 })
 
+// Note the helper of the example schema
+
+const { schema, versions, parse, validate, isVersion } = example
+```
+
+#### Get the [effect/Schema](https://effect.website/docs/schema/introduction/) object
+
+```ts
 // Get the schema object
 console.log(example.schema)
-// Schema<{ version: '1' | '2' } & { id: string, createdAt: number } & ...>
+// Schema<{ version: '1' | '2' | '3' } & { id: string, createdAt: number } & ...>
+```
 
+#### List available schema versions
+
+```ts
 // List available schema versions
 console.log(example.versions)
-// ['1', '2']
+// ['1', '2', '3']
+```
 
+#### Parse data
+
+```ts
 // Parse data
 const v1Data = {
   id: '123',
@@ -91,7 +135,11 @@ const v2Data = {
 }
 console.log(example.parse(v2Data))
 // { id: '456', createdAt: 1234567890, name: 'Example V2', description: '...', version: '2' }
+```
 
+#### Validate unknown data
+
+```ts
 // Check if data matches any version of your schema (type-safe)
 console.log(example.validate(v1Data)) // true
 console.log(example.validate({ version: '1' })) // false (missing required fields)
@@ -100,6 +148,8 @@ console.log(example.validate({ version: '1' })) // false (missing required field
 console.log(example.isVersion('1', v1Data)) // true
 console.log(example.isVersion('2', v1Data)) // false
 ```
+
+#### Convert to JSON Schema
 
 There are also some helpers to convert your schema into [JSON Schema](https://json-schema.org/specification) or [Standard Schema](<[StandardSchema](https://standardschema.dev/)>).
 
