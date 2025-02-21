@@ -30,7 +30,21 @@ import { createVersionedSchema } from '@figureland/versioned-schema'
 // }
 
 // We want our app to be able to support different versions
-// of this data structure. So we create a versioned schema.
+// of this data structure. So we create a versioned schema and
+// end up with this:
+
+// {
+//   id: string
+//   createdAt: number
+//   name: string
+//   version: "1"
+// } | {
+//   id: string
+//   createdAt: number
+//   name: string
+//   description: string
+//   version: "2"
+// }
 
 const example = createVersionedSchema({
   // Base schema - shared across all versions
@@ -90,10 +104,7 @@ console.log(example.isVersion('2', v1Data)) // false
 There are also some helpers to convert your schema into [JSON Schema](https://json-schema.org/specification) or [Standard Schema](<[StandardSchema](https://standardschema.dev/)>).
 
 ```ts
-import { 
-    createStandardSchema,
-    createJSONSchema
-} from '@figureland/versioned-schema/interchange'
+import { createStandardSchema, createJSONSchema } from '@figureland/versioned-schema/interchange'
 import { example } from '.'
 
 const json = createJSONSchema(example)
