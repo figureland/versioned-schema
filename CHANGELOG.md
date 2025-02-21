@@ -1,4 +1,17 @@
 #
+## v0.0.6
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.5...v0.0.6)
+
+### 🚀 Enhancements
+
+- Refactored to use valibot ([51a959c](https://github.com/figureland/versioned-schema/commit/51a959c))
+- Added effect/Schema ([01b63e4](https://github.com/figureland/versioned-schema/commit/01b63e4))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.5
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.4...v0.0.5)
