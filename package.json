@@ -33,19 +33,24 @@
     "@commitlint/config-conventional": "^19.7.1",
     "@types/bun": "^1.2.2",
     "bun-plugin-dts": "^0.2.4",
-    "eslint": "^9.20.1",
+    "effect": "^3.13.2",
+    "eslint": "^9.21.0",
     "husky": "^9.1.7",
     "prettier": "^3.5.1",
     "typescript": "^5.7.3",
     "typescript-eslint": "^7.18.0"
   },
   "dependencies": {
-    "@standard-schema/spec": "^1.0.0",
     "valibot": "^1.0.0-rc.1"
   },
   "peerDependencies": {
-    "@standard-schema/spec": "^1.0.0",
-    "valibot": "^1.0.0-rc.1"
+    "valibot": "^1.0.0-rc.1",
+    "effect": "^3.13.2"
+  },
+  "peerDependenciesMeta": {
+    "effect": {
+      "optional": true
+    }
   },
   "repository": {
     "type": "git",
