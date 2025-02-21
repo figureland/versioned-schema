@@ -7,7 +7,7 @@ A tiny tool which allows you to create basic versioned schemas, using [effect/Sc
 
 ## Explainer
 
-Let's make up a scenario where we have a basic data structure in our app. We want to update it by adding a new field called `description`. And then later on, And later on, we decide to change that want `description` to be an array of strings.
+Let's make up a scenario where we have a basic data structure in our app. We want to update it by adding a new field called `description`. And then later on, And later on, we decide to change the type of field `description` to be an array of strings.
 
 In this scenario, we might end up with different versions of our data structure that can clash.
 
