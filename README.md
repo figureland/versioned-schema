@@ -5,6 +5,8 @@
 
 A tiny tool which allows you to create basic versioned schemas, using [valibot](https://valibot.dev/). This is handy when designing distributed apps and data structures.
 
+This library can also be used with [effect/Schema](https://effect.website/docs/schema/introduction/).
+
 ## Explainer
 
 Let's make up a scenario where we have a basic data structure in our app. We want to update it by adding a new field called `description`. And then later on, And later on, we decide to change the type of field `description` to be an array of strings.
@@ -141,6 +143,19 @@ console.log(exampleSchema.validate({ version: '1' })) // false (missing required
 // Check if data is a specific version of your schema (type-safe)
 console.log(exampleSchema.isVersion('1', v1Data)) // true
 console.log(exampleSchema.isVersion('2', v1Data)) // false
+```
+
+### Use with effect/Schema
+
+```ts
+import { Schema } from 'effect'
+import { createVersionedSchema } from '@figureland/versioned-schema/effect'
+const exampleSchema = createVersionedSchema({
+  base: {
+    id: Schema.String,
+    createdAt: Schema.Number
+  }
+})
 ```
 
 ## Scripts
