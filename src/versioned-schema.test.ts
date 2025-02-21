@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'bun:test'
-import { Schema } from 'effect'
 import { createVersionedSchema } from '.'
+import { array, number, object, string, optional } from 'valibot'
 
 describe('createVersionedSchema', () => {
   const baseSchema = {
-    id: Schema.String,
-    createdAt: Schema.Number
+    id: string(),
+    createdAt: number()
   }
 
   const v1Fields = {
-    name: Schema.String
+    name: string()
   }
 
   const v2Fields = {
-    name: Schema.String,
-    description: Schema.String
+    name: string(),
+    description: string()
   }
 
   const testSchema = createVersionedSchema({
@@ -135,14 +135,14 @@ describe('createVersionedSchema', () => {
     it('should handle nested schemas', () => {
       const nestedSchema = createVersionedSchema({
         base: {
-          metadata: Schema.Struct({
-            tags: Schema.Array(Schema.String)
+          metadata: object({
+            tags: array(string())
           })
         },
         versions: {
           '1': {
-            data: Schema.Struct({
-              value: Schema.Number
+            data: object({
+              value: number()
             })
           }
         }
@@ -165,11 +165,11 @@ describe('createVersionedSchema', () => {
     it('should handle optional fields', () => {
       const optionalSchema = createVersionedSchema({
         base: {
-          required: Schema.String
+          required: string()
         },
         versions: {
           '1': {
-            optional: Schema.Union(Schema.String, Schema.Undefined)
+            optional: optional(string())
           }
         }
       })

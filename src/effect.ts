@@ -1,36 +1,21 @@
-import {
-  BaseIssue,
-  BaseSchema,
-  InferOutput,
-  literal,
-  object,
-  type ObjectEntries,
-  parse as valibotParse,
-  union
-} from 'valibot'
+import { Schema } from 'effect'
 
 type Version = `${number}`
 
 export const createVersionedSchema = <
-  Base extends ObjectEntries,
-  Versions extends Record<Version, ObjectEntries>,
+  Base extends Record<string, Schema.Schema<any>>,
+  Versions extends Record<Version, Record<string, Schema.Schema<any>>>,
   K extends keyof Versions,
-  SchemaInstance extends BaseSchema<
+  SchemaInstance extends Schema.Schema<
     {
       [K in keyof Versions]: {
-        [F in keyof Base]: BaseSchema<Base[F], Base[F], BaseIssue<Base[F]>>
+        [F in keyof Base]: Schema.Schema.Type<Base[F]>
       } & {
-        [F in keyof Versions[K]]: BaseSchema<
-          Versions[K][F],
-          Versions[K][F],
-          BaseIssue<Versions[K][F]>
-        >
+        [F in keyof Versions[K]]: Schema.Schema.Type<Versions[K][F]>
       } & { version: K }
-    }[keyof Versions],
-    any,
-    any
+    }[keyof Versions]
   >,
-  SchemaInstanceType extends InferOutput<SchemaInstance>
+  SchemaInstanceType extends Schema.Schema.Type<SchemaInstance>
 >({
   base,
   versions
@@ -41,17 +26,17 @@ export const createVersionedSchema = <
   /**
    * Combined union of all schema versions.
    */
-  const schema = union(
-    Object.entries(versions).map(([version, fields]) =>
-      object({
+  const schema = Schema.Union(
+    ...Object.entries(versions).map(([version, fields]) =>
+      Schema.Struct({
         ...base,
         ...fields,
-        version: literal(version as string)
+        version: Schema.Literal(version as string)
       })
     )
   ) as unknown as SchemaInstance
 
-  const parse = (v: unknown) => valibotParse(schema, v) as SchemaInstanceType
+  const parse = Schema.decodeUnknownSync(schema) as (v: unknown) => SchemaInstanceType
 
   const validate = (v: unknown): v is SchemaInstanceType => {
     try {
@@ -84,8 +69,8 @@ export const createVersionedSchema = <
 }
 
 export type VersionedSchema<
-  S extends BaseSchema<any, any, any> = any,
-  ST extends InferOutput<S> = any,
+  S extends Schema.Schema<any> = any,
+  ST extends Schema.Schema.Type<S> = any,
   V extends string | number | symbol = any
 > = {
   /**
@@ -163,10 +148,10 @@ export type VersionedSchemaType<
   T extends VersionedSchema,
   V extends string | undefined = undefined
 > = V extends undefined
-  ? T['schema'] extends BaseSchema<infer U, any, any>
+  ? T['schema'] extends Schema.Schema<infer U>
     ? U
     : never
-  : T['schema'] extends BaseSchema<infer U, any, any>
+  : T['schema'] extends Schema.Schema<infer U>
     ? Extract<U, { version: V }>
     : never
 

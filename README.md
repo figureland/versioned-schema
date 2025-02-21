@@ -3,7 +3,7 @@
 
 # versioned-schema
 
-A tiny tool which allows you to create basic versioned schemas, using [effect/Schema](https://effect.website/docs/schema/introduction/). This is handy when designing distributed apps and data structures.
+A tiny tool which allows you to create basic versioned schemas, using [valibot](https://valibot.dev/). This is handy when designing distributed apps and data structures.
 
 ## Explainer
 
@@ -66,27 +66,27 @@ This library provides some basic helpers to make it easier to work with that sch
 ### Create a versioned schema
 
 ```ts
-import { Schema } from 'effect'
+import { number, string, array } from 'valibot'
 import { createVersionedSchema } from '@figureland/versioned-schema'
 
 const exampleSchema = createVersionedSchema({
   // Base schema - shared across all versions
   base: {
-    id: Schema.String,
-    createdAt: Schema.Number
+    id: string(),
+    createdAt: number()
   },
   // Version-specific schemas
   versions: {
     '1': {
-      name: Schema.String
+      name: string()
     },
     '2': {
-      name: Schema.String,
-      description: Schema.String
+      name: string(),
+      description: string()
     },
     '3': {
-      name: Schema.String,
-      description: Schema.Array(Schema.String)
+      name: string(),
+      description: array(string())
     }
   }
 })
@@ -97,14 +97,6 @@ const { schema, versions, parse, validate, isVersion } = exampleSchema
 import { type VersionedSchemaType } from '@figureland/versioned-schema'
 
 export type Example = VersionedSchemaType<typeof exampleSchema>
-```
-
-### Get the [effect/Schema](https://effect.website/docs/schema/introduction/) object
-
-```ts
-// Get the schema object
-console.log(exampleSchema.schema)
-// Schema<{ version: '1' | '2' | '3' } & { id: string, createdAt: number } & ...>
 ```
 
 ### List available schema versions
@@ -149,25 +141,6 @@ console.log(exampleSchema.validate({ version: '1' })) // false (missing required
 // Check if data is a specific version of your schema (type-safe)
 console.log(exampleSchema.isVersion('1', v1Data)) // true
 console.log(exampleSchema.isVersion('2', v1Data)) // false
-```
-
-### Interchange
-
-#### Convert into [Standard Schema](<[StandardSchema](https://standardschema.dev/)>).
-
-```ts
-import type { StandardSchemaV1 } from '@standard-schema/spec'
-import { Schema } from 'effect'
-
-const standard = Schema.standardSchemaV1(exampleSchema.schema)
-```
-
-#### Convert your schema into [JSON Schema](https://json-schema.org/specification)
-
-```ts
-import { JSONSchema } from 'effect'
-
-const json = JSONSchema.make(exampleSchema.schema)
 ```
 
 ## Scripts

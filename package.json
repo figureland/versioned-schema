@@ -37,11 +37,11 @@
   },
   "dependencies": {
     "@standard-schema/spec": "^1.0.0",
-    "effect": "^3.13.2"
+    "valibot": "^1.0.0-rc.1"
   },
   "peerDependencies": {
     "@standard-schema/spec": "^1.0.0",
-    "effect": "^3.13.2"
+    "valibot": "^1.0.0-rc.1"
   },
   "repository": {
     "type": "git",

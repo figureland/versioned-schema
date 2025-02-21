@@ -5,5 +5,5 @@ await Bun.build({
   outdir: './dist',
   minify: false,
   plugins: [dts()],
-  external: ['effect']
+  external: ['']
 })
