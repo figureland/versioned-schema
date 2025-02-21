@@ -1,4 +1,22 @@
 #
+## v0.0.3
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.2...v0.0.3)
+
+### 🩹 Fixes
+
+- Fixed generic type error ([99e47e2](https://github.com/figureland/versioned-schema/commit/99e47e2))
+
+### 📖 Documentation
+
+- Updated readme ([b90f9cc](https://github.com/figureland/versioned-schema/commit/b90f9cc))
+- Updated import path ([73fd934](https://github.com/figureland/versioned-schema/commit/73fd934))
+- Updated import path ([b453851](https://github.com/figureland/versioned-schema/commit/b453851))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.2
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.1...v0.0.2)
