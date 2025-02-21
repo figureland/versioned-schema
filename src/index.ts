@@ -1,36 +1,21 @@
 import {
-  BaseIssue,
-  BaseSchema,
-  InferOutput,
   literal,
   object,
-  type ObjectEntries,
   parse as valibotParse,
-  union
+  union,
+  type BaseSchema,
+  type InferOutput,
+  type BaseIssue
 } from 'valibot'
 
 type Version = `${number}`
 
+type SchemaRecord = Record<string, BaseSchema<any, any, BaseIssue<any>>>
+
 export const createVersionedSchema = <
-  Base extends ObjectEntries,
-  Versions extends Record<Version, ObjectEntries>,
-  K extends keyof Versions,
-  SchemaInstance extends BaseSchema<
-    {
-      [K in keyof Versions]: {
-        [F in keyof Base]: BaseSchema<Base[F], Base[F], BaseIssue<Base[F]>>
-      } & {
-        [F in keyof Versions[K]]: BaseSchema<
-          Versions[K][F],
-          Versions[K][F],
-          BaseIssue<Versions[K][F]>
-        >
-      } & { version: K }
-    }[keyof Versions],
-    any,
-    any
-  >,
-  SchemaInstanceType extends InferOutput<SchemaInstance>
+  Base extends SchemaRecord,
+  Versions extends Record<Version, SchemaRecord>,
+  K extends keyof Versions
 >({
   base,
   versions
@@ -38,6 +23,15 @@ export const createVersionedSchema = <
   base: Base
   versions: Versions
 }) => {
+  type CombinedType = {
+    [V in keyof Versions]: {
+      [B in keyof Base]: InferOutput<Base[B]>
+    } & {
+      // @ts-expect-error Tricky type inference
+      [F in keyof Versions[V]]: InferOutput<Versions[V][F]>
+    } & { version: V }
+  }[keyof Versions]
+
   /**
    * Combined union of all schema versions.
    */
@@ -49,11 +43,11 @@ export const createVersionedSchema = <
         version: literal(version as string)
       })
     )
-  ) as unknown as SchemaInstance
+  ) as unknown as BaseSchema<CombinedType, CombinedType, BaseIssue<CombinedType>>
 
-  const parse = (v: unknown) => valibotParse(schema, v) as SchemaInstanceType
+  const parse = (v: unknown) => valibotParse(schema, v) as CombinedType
 
-  const validate = (v: unknown): v is SchemaInstanceType => {
+  const validate = (v: unknown): v is CombinedType => {
     try {
       parse(v)
       return true
@@ -65,7 +59,7 @@ export const createVersionedSchema = <
   const isVersion = <Ve extends keyof Versions>(
     version: Ve,
     value: unknown
-  ): value is SchemaInstanceType & { version: Ve } => {
+  ): value is CombinedType & { version: Ve } => {
     try {
       const parsed = parse(value)
       return parsed.version === version
