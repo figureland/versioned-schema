@@ -22,7 +22,7 @@ export const createVersionedSchema = <
 }: {
   base: Base
   versions: Versions
-}): VersionedSchema<SchemaInstance, SchemaInstanceType, K> => {
+}) => {
   /**
    * Combined union of all schema versions.
    */
