@@ -1,4 +1,24 @@
 #
+## v0.0.5
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.4...v0.0.5)
+
+### 🚀 Enhancements
+
+- Simplified interchange example ([22a3174](https://github.com/figureland/versioned-schema/commit/22a3174))
+
+### 📖 Documentation
+
+- Improve example ([add4a71](https://github.com/figureland/versioned-schema/commit/add4a71))
+- Fix types in readme ([474655e](https://github.com/figureland/versioned-schema/commit/474655e))
+- Improved readme ([4f7aed3](https://github.com/figureland/versioned-schema/commit/4f7aed3))
+- Improved readme ([d97d527](https://github.com/figureland/versioned-schema/commit/d97d527))
+- Improved readme ([b002842](https://github.com/figureland/versioned-schema/commit/b002842))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.4
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.3...v0.0.4)
