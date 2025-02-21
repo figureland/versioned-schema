@@ -1,4 +1,20 @@
 #
+## v0.0.2
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.1...v0.0.2)
+
+### 🚀 Enhancements
+
+- Updated export paths and fixed build step ([8443fe7](https://github.com/figureland/versioned-schema/commit/8443fe7))
+
+### 📖 Documentation
+
+- Updated readme ([ab8929a](https://github.com/figureland/versioned-schema/commit/ab8929a))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.1
 
 
