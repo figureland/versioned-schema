@@ -1,4 +1,16 @@
 #
+## v0.0.8
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.7...v0.0.8)
+
+### 🏡 Chore
+
+- Refined typescript inference ([5ff60de](https://github.com/figureland/versioned-schema/commit/5ff60de))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.7
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.6...v0.0.7)
