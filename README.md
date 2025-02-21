@@ -10,7 +10,7 @@ A tiny tool which allows you to create basic versioned schemas, using [effect/Sc
 Let's start with a basic data structure.
 
 ```ts
-{
+type Example = {
   id: string
   createdAt: number
   name: string
@@ -20,7 +20,7 @@ Let's start with a basic data structure.
 We want to create a new version of it. We want to add a description field to it.
 
 ```ts
-{
+type Example = {
   id: string
   createdAt: number
   name: string
@@ -31,7 +31,7 @@ We want to create a new version of it. We want to add a description field to it.
 And later on, we want `description` to be an array of strings.
 
 ```ts
-{
+type Example = {
   id: string
   createdAt: number
   name: string
@@ -42,24 +42,27 @@ And later on, we want `description` to be an array of strings.
 We want our app to be able to support different versions of this data structure. So we create a versioned schema and end up with this:
 
 ```ts
-{
-  id: string
-  createdAt: number
-  name: string
-  version: "1"
-} | {
-  id: string
-  createdAt: number
-  name: string
-  description: string
-  version: "2"
-} | {
-  id: string
-  createdAt: number
-  name: string
-  description: string[]
-  version: "3"
-}
+type Example =
+  | {
+      id: string
+      createdAt: number
+      name: string
+      version: '1'
+    }
+  | {
+      id: string
+      createdAt: number
+      name: string
+      description: string
+      version: '2'
+    }
+  | {
+      id: string
+      createdAt: number
+      name: string
+      description: string[]
+      version: '3'
+    }
 ```
 
 We can use this library to create this. Provided are some little helpers to make it easier to work with that schema in your app.
