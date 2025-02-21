@@ -65,7 +65,9 @@ type Example =
     }
 ```
 
-We can use this library to create this. Provided are some little helpers to make it easier to work with that schema in your app.
+These different versions can introduce a lot of complexity. This is not a new problem, and there are a lot of different approaches that tend to be application-specific.
+
+This library provides some basic helpers to make it easier to work with that schema in your app.
 
 #### Create a versioned schema
 
@@ -73,7 +75,7 @@ We can use this library to create this. Provided are some little helpers to make
 import { Schema } from 'effect'
 import { createVersionedSchema } from '@figureland/versioned-schema'
 
-const example = createVersionedSchema({
+const exampleSchema = createVersionedSchema({
   // Base schema - shared across all versions
   base: {
     id: Schema.String,
@@ -95,16 +97,19 @@ const example = createVersionedSchema({
   }
 })
 
-// Note the helper of the example schema
+const { schema, versions, parse, validate, isVersion } = exampleSchema
 
-const { schema, versions, parse, validate, isVersion } = example
+// You can also use VersionedSchemaType to infer the type of your schema
+import { type VersionedSchemaType } from '@figureland/versioned-schema'
+
+export type Example = VersionedSchemaType<typeof exampleSchema>
 ```
 
 #### Get the [effect/Schema](https://effect.website/docs/schema/introduction/) object
 
 ```ts
 // Get the schema object
-console.log(example.schema)
+console.log(exampleSchema.schema)
 // Schema<{ version: '1' | '2' | '3' } & { id: string, createdAt: number } & ...>
 ```
 
@@ -112,7 +117,7 @@ console.log(example.schema)
 
 ```ts
 // List available schema versions
-console.log(example.versions)
+console.log(exampleSchema.versions)
 // ['1', '2', '3']
 ```
 
@@ -126,7 +131,7 @@ const v1Data = {
   name: 'Example V1',
   version: '1'
 }
-console.log(example.parse(v1Data))
+console.log(exampleSchema.parse(v1Data))
 // { id: '123', createdAt: 1234567890, name: 'Example V1', version: '1' }
 
 const v2Data = {
@@ -136,7 +141,7 @@ const v2Data = {
   description: 'Version 2 has a description',
   version: '2'
 }
-console.log(example.parse(v2Data))
+console.log(exampleSchema.parse(v2Data))
 // { id: '456', createdAt: 1234567890, name: 'Example V2', description: '...', version: '2' }
 ```
 
@@ -144,12 +149,12 @@ console.log(example.parse(v2Data))
 
 ```ts
 // Check if data matches any version of your schema (type-safe)
-console.log(example.validate(v1Data)) // true
-console.log(example.validate({ version: '1' })) // false (missing required fields)
+console.log(exampleSchema.validate(v1Data)) // true
+console.log(exampleSchema.validate({ version: '1' })) // false (missing required fields)
 
 // Check if data is a specific version of your schema (type-safe)
-console.log(example.isVersion('1', v1Data)) // true
-console.log(example.isVersion('2', v1Data)) // false
+console.log(exampleSchema.isVersion('1', v1Data)) // true
+console.log(exampleSchema.isVersion('2', v1Data)) // false
 ```
 
 #### Convert to JSON Schema
