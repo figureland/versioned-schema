@@ -7,7 +7,9 @@ A tiny tool which allows you to create basic versioned schemas, using [effect/Sc
 
 ## Explainer
 
-Let's start with a basic data structure.
+Let's make up a scenario where we have a basic data structure in our app. We want to update it by adding a new field called `description`. And then later on, And later on, we decide to change that want `description` to be an array of strings.
+
+In this scenario, we might end up with different versions of our data structure that can clash.
 
 ```ts
 type Example = {
@@ -15,23 +17,15 @@ type Example = {
   createdAt: number
   name: string
 }
-```
 
-We want to create a new version of it. We want to add a description field to it.
-
-```ts
-type Example = {
+type Example2 = {
   id: string
   createdAt: number
   name: string
   description: string
 }
-```
 
-And later on, we want `description` to be an array of strings.
-
-```ts
-type Example = {
+type Example3 = {
   id: string
   createdAt: number
   name: string
@@ -39,7 +33,7 @@ type Example = {
 }
 ```
 
-We want our app to be able to support different versions of this data structure. So we create a versioned schema and end up with this:
+We want our app to be able to support different versions of this data structure. So we might end up with something like this:
 
 ```ts
 type Example =
@@ -69,7 +63,7 @@ These different versions can introduce a lot of complexity. This is not a new pr
 
 This library provides some basic helpers to make it easier to work with that schema in your app.
 
-#### Create a versioned schema
+### Create a versioned schema
 
 ```ts
 import { Schema } from 'effect'
@@ -105,7 +99,7 @@ import { type VersionedSchemaType } from '@figureland/versioned-schema'
 export type Example = VersionedSchemaType<typeof exampleSchema>
 ```
 
-#### Get the [effect/Schema](https://effect.website/docs/schema/introduction/) object
+### Get the [effect/Schema](https://effect.website/docs/schema/introduction/) object
 
 ```ts
 // Get the schema object
@@ -113,7 +107,7 @@ console.log(exampleSchema.schema)
 // Schema<{ version: '1' | '2' | '3' } & { id: string, createdAt: number } & ...>
 ```
 
-#### List available schema versions
+### List available schema versions
 
 ```ts
 // List available schema versions
@@ -121,7 +115,7 @@ console.log(exampleSchema.versions)
 // ['1', '2', '3']
 ```
 
-#### Parse data
+### Parse data
 
 ```ts
 // Parse data
@@ -145,7 +139,7 @@ console.log(exampleSchema.parse(v2Data))
 // { id: '456', createdAt: 1234567890, name: 'Example V2', description: '...', version: '2' }
 ```
 
-#### Validate unknown data
+### Validate unknown data
 
 ```ts
 // Check if data matches any version of your schema (type-safe)
@@ -157,7 +151,7 @@ console.log(exampleSchema.isVersion('1', v1Data)) // true
 console.log(exampleSchema.isVersion('2', v1Data)) // false
 ```
 
-#### Convert to JSON Schema
+### Convert to JSON Schema
 
 There are also some helpers to convert your schema into [JSON Schema](https://json-schema.org/specification) or [Standard Schema](<[StandardSchema](https://standardschema.dev/)>).
 
