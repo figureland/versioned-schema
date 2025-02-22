@@ -153,15 +153,4 @@ export type VersionedSchema<
   isVersion: (v: V, u: unknown) => u is ST & { version: V }
 }
 
-export type VersionedSchemaType<
-  T extends VersionedSchema,
-  V extends string | undefined = undefined
-> = V extends undefined
-  ? T['schema'] extends BaseSchema<infer U, any, any>
-    ? U
-    : never
-  : T['schema'] extends BaseSchema<infer U, any, any>
-    ? Extract<U, { version: V }>
-    : never
-
 export type SchemaVersionNumbers<T> = T extends VersionedSchema<any, any, infer V> ? V : never

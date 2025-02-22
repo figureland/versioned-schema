@@ -94,11 +94,14 @@ const exampleSchema = createVersionedSchema({
 })
 
 const { schema, versions, parse, validate, isVersion } = exampleSchema
+```
 
-// You can also use VersionedSchemaType to infer the type of your schema
-import { type VersionedSchemaType } from '@figureland/versioned-schema'
+### Infer the type of a schema
 
-export type Example = VersionedSchemaType<typeof exampleSchema>
+```ts
+import type { InferOutput } from 'valibot'
+
+type Example = InferOutput<typeof exampleSchema.schema>
 ```
 
 ### List available schema versions
