@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { createVersionedSchema } from '.'
 import { array, number, object, string, optional } from 'valibot'
+import { createVersionedSchema } from '.'
 
 describe('createVersionedSchema', () => {
   const baseSchema = {
