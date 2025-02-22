@@ -1,4 +1,16 @@
 #
+## v0.0.10
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.9...v0.0.10)
+
+### 🚀 Enhancements
+
+- Removed extraneous type ([227b1ec](https://github.com/figureland/versioned-schema/commit/227b1ec))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.9
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.8...v0.0.9)
