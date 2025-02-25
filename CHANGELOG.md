@@ -1,4 +1,16 @@
 #
+## v0.0.11
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.10...v0.0.11)
+
+### 🚀 Enhancements
+
+- Added type inference helpers ([9c5629e](https://github.com/figureland/versioned-schema/commit/9c5629e))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.10
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.9...v0.0.10)
