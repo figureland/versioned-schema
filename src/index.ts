@@ -154,3 +154,15 @@ export type VersionedSchema<
 }
 
 export type SchemaVersionNumbers<T> = T extends VersionedSchema<any, any, infer V> ? V : never
+
+export type OptionalizeUndefined<T> = {
+  [K in keyof T]: undefined extends T[K] ? Exclude<T[K], undefined> | undefined : T[K]
+} extends infer O
+  ? { [K in keyof O as undefined extends O[K] ? K : never]?: O[K] } & {
+      [K in keyof O as undefined extends O[K] ? never : K]: O[K]
+    }
+  : never
+
+export type InferSchema<T extends { schema: BaseSchema<any, any, any> }> = OptionalizeUndefined<
+  InferOutput<T['schema']>
+>

@@ -1,4 +1,5 @@
 import { Schema } from 'effect'
+import { OptionalizeUndefined } from '.'
 
 type Version = `${number}`
 
@@ -156,3 +157,7 @@ export type VersionedSchemaType<
     : never
 
 export type SchemaVersionNumbers<T> = T extends VersionedSchema<any, any, infer V> ? V : never
+
+export type InferSchema<T extends { schema: Schema.Schema<any> }> = OptionalizeUndefined<
+  Schema.Schema.Type<T['schema']>
+>
