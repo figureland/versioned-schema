@@ -161,6 +161,24 @@ const exampleSchema = createVersionedSchema({
 })
 ```
 
+### Use with zod
+
+```ts
+import { createVersionedSchema } from '@figureland/versioned-schema/zod'
+
+const exampleSchema = createVersionedSchema({
+  base: {
+    id: z.string(),
+    createdAt: z.number()
+  },
+  versions: {
+    '1': {
+      name: z.string()
+    }
+  }
+})
+```
+
 ## Scripts
 
 ### Install

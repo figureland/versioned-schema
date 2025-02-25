@@ -38,17 +38,23 @@
     "husky": "^9.1.7",
     "prettier": "^3.5.1",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^7.18.0"
+    "typescript-eslint": "^7.18.0",
+    "valibot": "^1.0.0-rc.1",
+    "zod": "^3.24.2"
   },
   "dependencies": {
     "valibot": "^1.0.0-rc.1"
   },
   "peerDependencies": {
     "valibot": "^1.0.0-rc.1",
-    "effect": "^3.13.2"
+    "effect": "^3.13.2",
+    "zod": "^3.24.2"
   },
   "peerDependenciesMeta": {
     "effect": {
+      "optional": true
+    },
+    "zod": {
       "optional": true
     }
   },

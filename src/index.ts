@@ -163,6 +163,5 @@ export type OptionalizeUndefined<T> = {
     }
   : never
 
-export type InferVersionedSchema<T extends { schema: BaseSchema<any, any, any> }> = OptionalizeUndefined<
-  InferOutput<T['schema']>
->
+export type InferVersionedSchema<T extends { schema: BaseSchema<any, any, any> }> =
+  OptionalizeUndefined<InferOutput<T['schema']>>
