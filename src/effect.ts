@@ -158,6 +158,6 @@ export type VersionedSchemaType<
 
 export type SchemaVersionNumbers<T> = T extends VersionedSchema<any, any, infer V> ? V : never
 
-export type InferSchema<T extends { schema: Schema.Schema<any> }> = OptionalizeUndefined<
+export type InferVersionedSchema<T extends { schema: Schema.Schema<any> }> = OptionalizeUndefined<
   Schema.Schema.Type<T['schema']>
 >
