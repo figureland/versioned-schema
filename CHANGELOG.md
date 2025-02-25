@@ -1,4 +1,16 @@
 #
+## v0.0.12
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.11...v0.0.12)
+
+### 🏡 Chore
+
+- Rename to avoid library name clashes ([2e68929](https://github.com/figureland/versioned-schema/commit/2e68929))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.11
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.10...v0.0.11)
