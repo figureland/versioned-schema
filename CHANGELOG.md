@@ -1,4 +1,16 @@
 #
+## v0.0.13
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.12...v0.0.13)
+
+### 🚀 Enhancements
+
+- Added zod support ([229dcc9](https://github.com/figureland/versioned-schema/commit/229dcc9))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.12
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.11...v0.0.12)
