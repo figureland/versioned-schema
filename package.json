@@ -12,6 +12,10 @@
     "./effect": {
       "types": "./dist/effect.d.ts",
       "import": "./dist/effect.js"
+    },
+    "./zod": {
+      "types": "./dist/zod.d.ts",
+      "import": "./dist/zod.js"
     }
   },
   "description": "Create versioned schemas for distributed applications",

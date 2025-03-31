@@ -18,10 +18,10 @@ export const createVersionedSchema = <
     }[keyof Versions]
   >
 >({
-  base,
+  base = {} as Base,
   versions
 }: {
-  base: Base
+  base?: Base
   versions: Versions
 }) => {
   /**

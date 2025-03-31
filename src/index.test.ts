@@ -25,6 +25,12 @@ describe('createVersionedSchema', () => {
     }
   })
 
+  const versionOnlySchema = createVersionedSchema({
+    versions: {
+      '1': baseSchema
+    }
+  })
+
   describe('schema', () => {
     it('should create a valid schema', () => {
       expect(testSchema.schema).toBeDefined()
@@ -54,6 +60,16 @@ describe('createVersionedSchema', () => {
       }
       expect(() => testSchema.parse(validV2Data)).not.toThrow()
       expect(testSchema.parse(validV2Data)).toEqual(validV2Data as any)
+    })
+
+    it('should parse valid version only data', () => {
+      const validVersionOnlyData = {
+        id: 'test-id',
+        createdAt: 123456789,
+        version: '1'
+      }
+      expect(() => versionOnlySchema.parse(validVersionOnlyData)).not.toThrow()
+      expect(versionOnlySchema.parse(validVersionOnlyData)).toEqual(validVersionOnlyData as any)
     })
 
     it('should throw on invalid data', () => {

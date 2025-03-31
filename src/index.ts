@@ -17,10 +17,10 @@ export const createVersionedSchema = <
   Versions extends Record<Version, SchemaRecord>,
   K extends keyof Versions
 >({
-  base,
+  base = {} as Base,
   versions
 }: {
-  base: Base
+  base?: Base
   versions: Versions
 }) => {
   type CombinedType = {

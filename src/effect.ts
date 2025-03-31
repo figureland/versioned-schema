@@ -18,10 +18,10 @@ export const createVersionedSchema = <
   >,
   SchemaInstanceType extends Schema.Schema.Type<SchemaInstance>
 >({
-  base,
+  base = {} as Base,
   versions
 }: {
-  base: Base
+  base?: Base
   versions: Versions
 }) => {
   /**
