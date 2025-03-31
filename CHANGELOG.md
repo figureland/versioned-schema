@@ -1,4 +1,16 @@
 #
+## v0.0.15
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.14...v0.0.15)
+
+### 🚀 Enhancements
+
+- Made base fields optional ([513d08a](https://github.com/figureland/versioned-schema/commit/513d08a))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.14
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.13...v0.0.14)
