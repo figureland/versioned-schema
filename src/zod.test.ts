@@ -193,4 +193,32 @@ describe('createVersionedSchema', () => {
       expect(optionalSchema.validate(withoutOptional)).toBe(true)
     })
   })
+
+  it('should return the latest version', () => {
+    const schema = createVersionedSchema({
+      base: {
+        id: z.string()
+      },
+      versions: {
+        '1': { name: z.string() },
+        '2': { name: z.string(), description: z.string() },
+        '3': { name: z.string(), description: z.array(z.string()) }
+      }
+    })
+
+    expect(schema.getLatestVersion()).toBe('3')
+  })
+
+  it('should work with a single version', () => {
+    const schema = createVersionedSchema({
+      base: {
+        id: z.string()
+      },
+      versions: {
+        '1': { name: z.string() }
+      }
+    })
+
+    expect(schema.getLatestVersion()).toBe('1')
+  })
 })

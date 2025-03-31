@@ -61,12 +61,29 @@ export const createVersionedSchema = <
     }
   }
 
+  /**
+   * Returns the latest schema version (the last key in the versions object).
+   *
+   * @example
+   * ```ts
+   * const { getLatestVersion } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
+   * console.log(getLatestVersion()) // '2'
+   * ```
+   *
+   * @returns The latest version string
+   */
+  const getLatestVersion = () => {
+    const versionKeys = Object.keys(versions)
+    return versionKeys[versionKeys.length - 1] as K
+  }
+
   return {
     schema,
     parse,
     validate,
     isVersion,
-    versions: Object.keys(versions) as K[]
+    versions: Object.keys(versions) as K[],
+    getLatestVersion
   }
 }
 
@@ -129,6 +146,18 @@ export type VersionedSchema<
    * ```
    */
   isVersion: (v: V, u: unknown) => u is ST & { version: V }
+  /**
+   * Returns the latest schema version (the last key in the versions object).
+   *
+   * @example
+   * ```ts
+   * const { getLatestVersion } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
+   * console.log(getLatestVersion()) // '2'
+   * ```
+   *
+   * @returns The latest version string
+   */
+  getLatestVersion: () => V
 }
 
 export type VersionedSchemaType<

@@ -191,4 +191,32 @@ describe('createVersionedSchema', () => {
       expect(optionalSchema.validate(withoutOptional)).toBe(true)
     })
   })
+
+  it('should return the latest version', () => {
+    const schema = createVersionedSchema({
+      base: {
+        id: Schema.String
+      },
+      versions: {
+        '1': { name: Schema.String },
+        '2': { name: Schema.String, description: Schema.String },
+        '3': { name: Schema.String, description: Schema.Array(Schema.String) }
+      }
+    })
+
+    expect(schema.getLatestVersion()).toBe('3')
+  })
+
+  it('should work with a single version', () => {
+    const schema = createVersionedSchema({
+      base: {
+        id: Schema.String
+      },
+      versions: {
+        '1': { name: Schema.String }
+      }
+    })
+
+    expect(schema.getLatestVersion()).toBe('1')
+  })
 })
