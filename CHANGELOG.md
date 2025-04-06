@@ -1,4 +1,16 @@
 #
+## v0.0.16
+
+[compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.15...v0.0.16)
+
+### 🚀 Enhancements
+
+- Simplified latest version ([13c7c65](https://github.com/figureland/versioned-schema/commit/13c7c65))
+
+### ❤️ Contributors
+
+- Toby Milner-Gulland <toby@figure.land>
+
 ## v0.0.15
 
 [compare changes](https://github.com/figureland/versioned-schema/compare/v0.0.14...v0.0.15)
