@@ -8,7 +8,7 @@ import {
   type BaseIssue
 } from 'valibot'
 
-type Version = `${number}`
+type Version = number | string
 
 type SchemaRecord = Record<string, BaseSchema<any, any, BaseIssue<any>>>
 
@@ -27,7 +27,6 @@ export const createVersionedSchema = <
     [V in keyof Versions]: {
       [B in keyof Base]: InferOutput<Base[B]>
     } & {
-      // @ts-expect-error Tricky type inference
       [F in keyof Versions[V]]: InferOutput<Versions[V][F]>
     } & { version: V }
   }[keyof Versions]
@@ -68,21 +67,8 @@ export const createVersionedSchema = <
     }
   }
 
-  /**
-   * Returns the latest schema version (the last key in the versions object).
-   *
-   * @example
-   * ```ts
-   * const { getLatestVersion } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
-   * console.log(getLatestVersion()) // '2'
-   * ```
-   *
-   * @returns The latest version string
-   */
-  const getLatestVersion = () => {
-    const versionKeys = Object.keys(versions)
-    return versionKeys[versionKeys.length - 1] as K
-  }
+  const versionKeys = Object.keys(versions)
+  const latest = versionKeys[versionKeys.length - 1] as K
 
   return {
     schema,
@@ -90,14 +76,14 @@ export const createVersionedSchema = <
     validate,
     isVersion,
     versions: Object.keys(versions) as K[],
-    getLatestVersion
+    latest
   }
 }
 
 export type VersionedSchema<
   S extends BaseSchema<any, any, any> = any,
   ST extends InferOutput<S> = any,
-  V extends string | number | symbol = any
+  V extends string | number = any
 > = {
   /**
    * Creates a versioned {@link Schema.Schema}
@@ -168,6 +154,16 @@ export type VersionedSchema<
    * @returns - True if the value is valid for the given version, false otherwise.
    */
   isVersion: (v: V, u: unknown) => u is ST & { version: V }
+  /**
+   * The latest version of the schema.
+   *
+   * @example
+   * ```ts
+   * const { latest } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
+   * console.log(latest) // '2'
+   * ```
+   */
+  latest: V
 }
 
 export type SchemaVersionNumbers<T> = T extends VersionedSchema<any, any, infer V> ? V : never

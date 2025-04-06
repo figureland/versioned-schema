@@ -1,7 +1,7 @@
 import { Schema } from 'effect'
 import { OptionalizeUndefined } from '.'
 
-type Version = `${number}`
+type Version = number | string
 
 export const createVersionedSchema = <
   Base extends Record<string, Schema.Schema<any>>,
@@ -60,21 +60,8 @@ export const createVersionedSchema = <
     }
   }
 
-  /**
-   * Returns the latest schema version (the last key in the versions object).
-   *
-   * @example
-   * ```ts
-   * const { getLatestVersion } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
-   * console.log(getLatestVersion()) // '2'
-   * ```
-   *
-   * @returns The latest version string
-   */
-  const getLatestVersion = () => {
-    const versionKeys = Object.keys(versions)
-    return versionKeys[versionKeys.length - 1] as K
-  }
+  const versionKeys = Object.keys(versions)
+  const latest = versionKeys[versionKeys.length - 1] as K
 
   return {
     schema,
@@ -82,7 +69,7 @@ export const createVersionedSchema = <
     validate,
     isVersion,
     versions: Object.keys(versions) as K[],
-    getLatestVersion
+    latest
   }
 }
 
@@ -161,17 +148,14 @@ export type VersionedSchema<
    */
   isVersion: (v: V, u: unknown) => u is ST & { version: V }
   /**
-   * Returns the latest schema version (the last key in the versions object).
+   * The latest version of the schema.
    *
    * @example
    * ```ts
-   * const { getLatestVersion } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
-   * console.log(getLatestVersion()) // '2'
-   * ```
-   *
-   * @returns The latest version string
+   * const { latest } = createVersionedSchema({ base: {}, versions: { '1': {}, '2': {} } })
+   * console.log(latest) // '2'
    */
-  getLatestVersion: () => V
+  latest: V
 }
 
 export type VersionedSchemaType<

@@ -206,7 +206,7 @@ describe('createVersionedSchema', () => {
       }
     })
 
-    expect(schema.getLatestVersion()).toBe('3')
+    expect(schema.latest).toBe('3')
   })
 
   it('should work with a single version', () => {
@@ -219,6 +219,6 @@ describe('createVersionedSchema', () => {
       }
     })
 
-    expect(schema.getLatestVersion()).toBe('1')
+    expect(schema.latest).toBe('1')
   })
 })
